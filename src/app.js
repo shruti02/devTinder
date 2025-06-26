@@ -2,16 +2,21 @@ const express = require('express');
 
 const app = express();
 
-app.use("/user", (req,res,next) =>{
-    console.log("Handling the route user!!")
-    next();
-    res.send("Response!!")
-    
-},(req,res)=>{
-    console.log("Handling the route user2 !!")
-    res.send("2nd Response !!")
+const {adminAuth} = require("./middlewares/auth")
+
+app.use("/admin",adminAuth)
+
+app.get("/user",(req,res)=>{
+    res.send("User Data sent");
 })
 
+app.get("/admin/getAllData",(req,res)=>{
+    res.send("All Data Sent")
+})
+
+app.get("/admin/deleteUser",(req,res)=>{
+    res.send("Delete a user")
+})
 app.listen(3000,() =>{
     console.log('Server is successfully listening on port 3000');
 });
