@@ -2,21 +2,14 @@ const express = require('express');
 
 const app = express();
 
-app.get("/user",(req,res) => {
-    res.send({firstName : 'Shruti', lastName: "Agrawal"})
-});
-
-app.post("/user",(req,res) => {
-    res.send("Data save successfully")
-})
-
-app.delete("/user",(req,res) => {
-    res.send("Delete save successfully")
-})
-
-
-app.use("/test",(req,res) => {
-    res.send("Hello form the server!")
+app.use("/user", (req,res,next) =>{
+    console.log("Handling the route user!!")
+    next();
+    res.send("Response!!")
+    
+},(req,res)=>{
+    console.log("Handling the route user2 !!")
+    res.send("2nd Response !!")
 })
 
 app.listen(3000,() =>{
